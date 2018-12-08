@@ -4,3 +4,4 @@ todo_list_express.iml
 package-lock.json
 .idea/
 node_modules/
+.DS_Store
