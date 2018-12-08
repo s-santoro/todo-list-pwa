@@ -1,0 +1,20 @@
+{
+  "short_name": "TODO-List",
+  "name": "Progressive TODO-List",
+  "icons": [
+    {
+      "src": "/static/images/icon_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/static/images/icon_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#F8F9FA",
+  "theme_color": "#343A40",
+  "display": "standalone"
+}

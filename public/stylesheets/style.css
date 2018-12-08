@@ -1,0 +1,47 @@
+body {
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+  font: 1.4rem "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00b7ff;
+}
+
+@media (max-width: 575.98px) {
+  #addTask {
+    margin-top: 8px;
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+
+/*
+  warum ändert es bei min-width und nicht bei max-width
+
+*/
+/*@media (min-width: 575.98px) {*/
+/*body, .h4 {*/
+/*font-size: 3rem;*/
+/*}*/
+/*}*/
+
+/*!*Small devices (landscape phones, less than 768px)*!*/
+/*@media (min-width: 767.98px) {*/
+/*body {*/
+/*font-size: 4rem;*/
+/*}*/
+/*}*/
+
+/*!*Medium devices (tablets, less than 992px)*!*/
+/*@media (max-width: 991.98px) {*/
+
+/*}*/
+
+/*!*Large devices (desktops, less than 1200px)*!*/
+/*@media (max-width: 1199.98px) {*/
+
+/*}*/
+
+/*Extra large devices (large desktops)*/
+/*No media query since the extra-large breakpoint has no upper bound on its width*/

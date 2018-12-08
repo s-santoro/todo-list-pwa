@@ -1,0 +1,11 @@
+[
+  { "id": 1, "state": "open", "task": "make the laundry" },
+  { "id": 2, "state": "open", "task": "do the cooking" },
+  { "id": 3, "state": "closed", "task": "chill" },
+  { "id": 4, "state": "open", "task": "make the homework" },
+  { "id": 5, "state": "closed", "task": "vacuum the apartment" },
+  { "id": 6, "state": "closed", "task": "do tax-report" },
+  { "id": 7, "state": "open", "task": "do nothing" },
+  { "id": 8, "state": "open", "task": "make a sandwich" },
+  { "id": 9, "state": "closed", "task": "take shower" }
+]
