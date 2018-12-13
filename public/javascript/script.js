@@ -133,3 +133,15 @@ function renderClosedTasks() {
     fetchAndRenderTasks('?state=closed');
   }
 }
+
+
+var offlineNotification = document.getElementById('offline-message');
+function showIndicator() {
+    offlineNotification.innerHTML = 'You are currently offline.';
+    offlineNotification.className = 'showOfflineNotification';
+}
+function hideIndicator() {
+    offlineNotification.className = 'hideOfflineNotification';
+}
+window.addEventListener('online',  hideIndicator);
+window.addEventListener('offline', showIndicator);
