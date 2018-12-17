@@ -134,14 +134,13 @@ function renderClosedTasks() {
   }
 }
 
-
 var offlineNotification = document.getElementById('offline-message');
 function showIndicator() {
-    offlineNotification.innerHTML = 'You are currently offline.';
-    offlineNotification.className = 'showOfflineNotification';
+  offlineNotification.innerHTML = 'You are currently offline.';
+  offlineNotification.className = 'showOfflineNotification';
 }
 function hideIndicator() {
-    offlineNotification.className = 'hideOfflineNotification';
+  offlineNotification.className = 'hideOfflineNotification';
 }
-window.addEventListener('online',  hideIndicator);
+window.addEventListener('online', hideIndicator);
 window.addEventListener('offline', showIndicator);
