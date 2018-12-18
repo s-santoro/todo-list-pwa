@@ -112,7 +112,7 @@
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
-          .register("static/sw.js")
+          .register("/sw.js")
           .then(registration => {
             console.log(
               "Registration was successful with scope: ",
