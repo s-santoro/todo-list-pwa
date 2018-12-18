@@ -50,7 +50,7 @@ self.addEventListener('fetch', (event) => {
               .then((cache) => {
                 cache.put(request, resClone);
               })
-              .catch(err => console.log(err));
+              .catch((err) => console.log(err));
               return res;
           });
         })
