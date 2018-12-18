@@ -3,7 +3,7 @@ let cacheName = "todo_v1";
 // TODO: listen for beforeinstallprompt and prompt it to user
 
 /**
- * ------- SERVICEWORKER MUSS IN PUBLIC-PFAD SEIN, SONST KANN ER NICHT ÜBER ALLE DATEIEN ARBEITEN
+ * Initial caching of files for layout.
  */
 self.addEventListener("install", event => {
   console.log("installing");
@@ -35,39 +35,48 @@ self.addEventListener("install", event => {
  */
 self.addEventListener("fetch", event => {
   console.log("fetching");
-  event.respondWith(
-    caches
-      .match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
 
-        // not in cache => request and save it in cache
-        let requestClone = event.request;
-        fetch(requestClone)
-        .then(res => {
-          if (!res || res.status !== 200) {
-            return res;
-          }
-          let resClone = res.clone();
-          caches.open(cacheName)
-          .then(cache => {
-            if(requestClone.method == 'GET'){ 
-              cache.put(requestClone, resClone);
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
+  /**
+   * Offline-fetching and caching
+   * 
+   * not in cache => request and save it in cache
+   */
+  event.respondWith(caches.match(event.request)
+    .then(response => {
+      // when user is online, fetch resource
+      // otherwise get from cache if exists in cache
+      if (response && !navigator.onLine) {
+        return response;
+      }
+
+      // fetch request
+      let requestClone = event.request;
+      fetch(requestClone)
+      .then(res => {
+        // if request failed then return immediately
+        if (!res || res.status !== 200) {
           return res;
+        }
+        let resClone = res.clone();
+        // cache request only if HTTP-GET was used
+        caches.open(cacheName)
+        .then(cache => {
+          if(requestClone.method == 'GET'){ 
+            cache.put(requestClone, resClone);
+          }
         })
         .catch(error => {
           console.log(error);
         });
+        return res;
       })
       .catch(error => {
-        console.log("Failed to fetch: ", error);
-      })
-  );
+        // failed to fetch
+        // return with status 200
+        return new Response({"status": 200, "statusText": "No network-connection"});
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    }));
 });
