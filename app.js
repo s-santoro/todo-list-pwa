@@ -24,7 +24,7 @@ app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 // middleware for static files => localhost:3000/static/public-folder-contents
-app.use('/static', express.static('public'));
+app.use(express.static('public'));
 
 app.use('/', indexRouter);
 
