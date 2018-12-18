@@ -49,7 +49,9 @@ self.addEventListener("fetch", event => {
           let resClone = res.clone();
           caches.open(cacheName)
           .then(cache => {
-            cache.put(requestClone, resClone);
+            if(requestClone.method == 'GET'){ 
+              cache.put(requestClone, resClone);
+            }
           })
           .catch(error => {
             console.log(error);
