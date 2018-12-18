@@ -1,7 +1,5 @@
 let cacheName = "todo_v1";
 
-// TODO: listen for beforeinstallprompt and prompt it to user
-
 /**
  * Initial caching of files for layout.
  */
