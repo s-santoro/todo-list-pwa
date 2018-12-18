@@ -36,27 +36,30 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
   console.log('fetching');
   event.respondWith(
-    caches
-      .match(event.request)
+    caches.match(event.request)
       .then((response) => {
-        if (response) return response;
+        if (response) {
+          return response;
+        }
+
         // not in cache => request and save it in cache
         let requestClone = event.request;
-        fetch(requestClone).then((res) => {
-          if (!res || res.status !== 200) {
-            return res;
-          }
-          let resClone = res.clone();
-          caches.open(cacheName)
-          .then((cache) => {
-            cache.put(request, resClone);
-          })
-          .catch(err => console.log(err));
-          return res;
-        });
-      })
-      .catch((error) => {
-        console.log('Failed to fetch: ', error);
-      })
+        fetch(requestClone)
+          .then((res) => {
+            if (!res || res.status !== 200) {
+              return res;
+            }
+            let resClone = res.clone();
+            caches.open(cacheName)
+              .then((cache) => {
+                cache.put(request, resClone);
+              })
+              .catch(err => console.log(err));
+              return res;
+          });
+        })
+        .catch((error) => {
+          console.log('Failed to fetch: ', error);
+        })
   );
 });
