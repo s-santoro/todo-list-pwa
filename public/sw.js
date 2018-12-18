@@ -45,7 +45,7 @@ self.addEventListener("fetch", event => {
     .then(response => {
       // when user is online, fetch resource
       // otherwise get from cache if exists in cache
-      if (response ) {
+      if (response && !navigator.onLine) {
         return response;
       }
 
