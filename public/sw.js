@@ -73,7 +73,7 @@ self.addEventListener("fetch", event => {
       .catch(error => {
         // failed to fetch
         // return with status 200
-        return new Response({"status": 200, "statusText": "No network-connection"});
+        return new Response("",{"status": 200, "statusText": "No network-connection"});
       });
     })
     .catch(error => {
