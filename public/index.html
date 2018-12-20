@@ -1,99 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="Description" content="Progressive Web App of a TODO-List" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, maximum-scale=1" />
-    <meta name="theme-color" content="#343A40" />
-    <title>Todo-List</title>
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <link href="/stylesheets/style.css" rel="stylesheet" />
-  </head>
 
-  <body>
-    <div class="main-wrapper" style="height: 100vh; width: auto;">
-      <!-- main-wrapper set to 100 viewport-size -->
-      <!-- and the rest in div under this comment to height-100% -->
-      <div id="navbar">
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
-          <a class="navbar-brand" href="#">
-            <div class="h2 my-auto">TODO</div>
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
+<head>
+  <meta name="Description" content="Progressive Web App of a TODO-List" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, maximum-scale=1" />
+  <meta name="theme-color" content="#343A40" />
+  <title>Todo-List</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous" />
+  <link href="/stylesheets/style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="main-wrapper" style="height: 100vh; width: auto;">
+    <!-- main-wrapper set to 100 viewport-size -->
+    <!-- and the rest in div under this comment to height-100% -->
+    <div id="navbar">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
+        <a class="navbar-brand" href="#">
+          <div class="h2 my-auto">TODO</div>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a id="open-tasks" class="nav-link active" href="#">Open tasks</a>
+            </li>
+            <li class="nav-item">
+              <a id="closed-tasks" class="nav-link" href="#">Closed tasks</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div id="input" class="container-fluid w-100">
+      <div class="bg-light p-3 row">
+        <div class="col-sm-10 justify-content-start">
+          <input id="inputTask" class="add-todo w-100" type="text" placeholder="Add a to-do..." />
+        </div>
+        <div class="col-sm-2">
+          <button type="button" id="addTask" class="btn btn-secondary btn-sm float-right">
+            Add task
           </button>
-          <div
-            class="collapse navbar-collapse justify-content-end"
-            id="navbarNav"
-          >
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a id="open-tasks" class="nav-link active" href="#"
-                  >Open tasks</a
-                >
-              </li>
-              <li class="nav-item">
-                <a id="closed-tasks" class="nav-link" href="#">Closed tasks</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-
-      <div id="input" class="container-fluid w-100">
-        <div class="bg-light p-3 row">
-          <div class="col-sm-10 justify-content-start">
-            <input
-              id="inputTask"
-              class="add-todo w-100"
-              type="text"
-              placeholder="Add a to-do..."
-            />
-          </div>
-          <div class="col-sm-2">
-            <button
-              type="button"
-              id="addTask"
-              class="btn btn-secondary btn-sm float-right"
-            >
-              Add task
-            </button>
-          </div>
         </div>
       </div>
-
-      <div id="task-list" class="container-fluid w-100"></div>
     </div>
-    <div id="offline-message"></div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/javascript/script.js"></script>
-    <script>
-      if ("serviceWorker" in navigator) {
+
+    <div id="task-list" class="container-fluid w-100"></div>
+    <div id="message"></div>
+  </div>
+  <div id="offline-message"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="/javascript/script.js"></script>
+  <script src="/javascript/idb-keyval.js" ></script>
+  <script>
+    
+    if ("serviceWorker" in navigator && 'SyncManager' in window) {
+      navigator.serviceWorker
+        .register("/sw.js")
+        .then(registration => navigator.serviceWorker.ready)
+        .then(registration => {
+          document.getElementById('addTask').addEventListener('click', () => {
+            registration.sync.register('needSync').then(() => {            // The sync for the contact-email
+              queueMessage();                                                 // Queue the body of the message
+              displayMessageNotification('Message queued');
+            });
+          });
+        });
+    }
+    else {
+    document.getElementById('addTask').addEventListener('click', () => {
+          sendMessage()     // Else fallback and send the actual message
+          .then(displayMessageNotification('Message sent'))
+          .catch(err => { displayMessageNotification('Message failed') });
+    });
+  }
+  /*
+  if ("serviceWorker" in navigator) {
         navigator.serviceWorker
           .register("/sw.js")
           .then(registration => {
@@ -106,6 +100,8 @@
             console.log("Registration was NOT successful with error: ", error);
           });
       }
-    </script>
-  </body>
+    */
+  </script>
+</body>
+
 </html>

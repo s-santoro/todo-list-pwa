@@ -1,4 +1,5 @@
 let cacheName = "todo_v1";
+importScripts('./javascript/idb-keyval.js');
 
 /**
  * Initial caching of files for layout.
@@ -77,4 +78,104 @@ self.addEventListener("fetch", event => {
     .catch(error => {
       console.log(error);
     }));
+});
+
+/*
+// The sync event for the contact form
+self.addEventListener('sync', function (event) {
+  if (event.tag === 'contact-email') {
+    event.waitUntil(
+      idbKeyval.get('sendMessage').then(value =>
+        fetch('/sendMessage/', {
+          method: 'POST',
+          headers: new Headers({ 'content-type': 'application/json' }),
+          body: JSON.stringify(value)
+        })));
+        // Remove the value from the DB
+        idbKeyval.delete('sendMessage');
+    }
+});
+*/
+
+//keeping data synchronized
+self.addEventListener('sync', (event) => {
+
+  // IndexedDB is ordered alphabetically
+  // Keys are sorted after priority
+  // Heighest Priority  A(GET)-B(DELETE)  Lowest Priority
+  if (event.tag === 'needsSync') {
+    let promise = idbKeyval.keys();
+    promise.then((keys) => {
+      let posts = [];
+      let puts = [];
+      let deletes = [];
+
+      for (let k of keys) {
+        if (/sendTask/.test(k)) {
+          posts.push(k);
+        } else if (/updateTask/.test(k)) {
+          puts.push(k);
+        } else if ((/deleteTask/.test(k))) {
+          deletes.push(k);
+        }
+      }
+      let sortedKeys = posts.concat(puts, deletes);
+
+      for (let sortedKey of sortedKeys) {
+        if (/sendTask/.test(sortedKey)) {
+          idbKeyval.get(sortedKey).then((value) => {
+            fetch('api/tasks', {
+              method: 'POST',
+              headers: new Headers({
+                'content-type': 'application/json'
+              }),
+              body: JSON.stringify(value)
+            }).then((response) => {
+              console.log("POST sync successful");
+            }).catch(err => {
+              console.log("POST sync failed");
+
+            });
+          });
+
+          idbKeyval.delete(sortedKey);
+        } else if (/updateTask/.test(sortedKey)) {
+          idbKeyval.get(sortedKey).then((value) => {
+            let updatedTask = {
+              "description": value.description,
+              "category": value.category
+            };
+            fetch('api/tasks/' + value.id, {
+              method: 'PUT',
+              headers: {
+                'content-type': 'application/json'
+              },
+              body: JSON.stringify(updatedTask)
+            }).then((response) => {
+              console.log("PUT sync successful");
+            }).catch(err => {
+              console.log("PUT sync failed");
+
+            });
+          });
+          idbKeyval.delete(sortedKey);
+        } else if (/deleteTask/.test(sortedKey)) {
+          idbKeyval.get(sortedKey).then((value) => {
+            fetch('api/tasks/' + value, {
+              method: 'DELETE'
+
+            }).then((response) => {
+              console.log("DELETE sync successful");
+
+            }).catch(err => {
+              console.log("DELETE sync failed");
+
+            });
+          });
+          idbKeyval.delete(sortedKey);
+        }
+      }
+    });
+
+  }
 });
