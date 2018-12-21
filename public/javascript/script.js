@@ -110,7 +110,6 @@ function fetchAndRenderTasks(state) {
   fetch(url)
     .then((response) => response.json())
     .then((json) => {
-      taskCount = json.length + 1;
       $('.task-item').remove();
       $.each(json, function (key, val) {
         if (val.state === state) {
