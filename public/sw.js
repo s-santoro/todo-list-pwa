@@ -75,12 +75,16 @@ self.addEventListener("fetch", event => {
  * Background Sync to add tasks
  */
 self.addEventListener('sync', function (event) {
+  // timeout for writing idb-keyval before reading out
   setTimeout(function () {
     if (event.tag === 'tasksPost') {
+      // get all keys from idb-keyval
       idbKeyval.keys().then(keys => {
         keys.reverse();
         keys.forEach(function (key) {
+          // get value from each key
           idbKeyval.get(key).then(value => {
+            // if value in idb-keyval is a new task
             if (value.state === "post") {
               fetch('/api/tasks', {
                 method: 'POST',
@@ -100,12 +104,16 @@ self.addEventListener('sync', function (event) {
  * Background Sync to set tasks to done
  */
 self.addEventListener('sync', function (event) {
+  // timeout for writing idb-keyval before reading out
   setTimeout(function () {
     if (event.tag === 'tasksPut') {
+      // get all keys from idb-keyval
       idbKeyval.keys().then(keys => {
         keys.reverse();
         keys.forEach(function (key) {
+          // get value from each key
           idbKeyval.get(key).then(value => {
+            // if value in idb-keyval is a closed task
             if (value.state === "put") {
               fetch('/api/tasks/' + value.id, {
                 method: 'PUT',

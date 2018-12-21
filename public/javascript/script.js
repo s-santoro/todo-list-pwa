@@ -14,6 +14,7 @@ window.onload = function () {
 // event-listener for open/closed nav-items
 $('#open-tasks').on('click', renderOpenTasks);
 $('#closed-tasks').on('click', renderClosedTasks);
+
 // initial fetch
 // set taskCounter to task-size + 1
 // only show open tasks
@@ -63,7 +64,6 @@ $('#addTask').click(function () {
   }
 });
 
-
 // return layout for new task
 function layoutOpenTask(id, task) {
   return (layout =
@@ -84,7 +84,6 @@ function layoutClosedTask(id, task) {
     task +
     '</del></div>');
 }
-
 
 // set task to done
 // set idb-keyval for setting task to done
@@ -162,10 +161,3 @@ function hideIndicator() {
 // add event-listeners for online/offline indicators
 window.addEventListener('online', hideIndicator);
 window.addEventListener('offline', showIndicator);
-
-
-function displayMessageNotification(notificationText) {
-  var messageNotification = document.getElementById('message');
-  messageNotification.innerHTML = notificationText;
-  messageNotification.className = 'showMessageNotification';
-}

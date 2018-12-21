@@ -21,23 +21,11 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-// const https = require('https');
-// const fs = require('fs');
-
-// const httpsOptions = {
-//   key: fs.readFileSync('./server.key'),
-//   cert: fs.readFileSync('./server.crt'),
-// };
-
 var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
-// const server = https.createServer(httpsOptions, app).listen(port, () => {
-//   console.log('Example SSL app listening on port ' + port);
-// });
 
 server.listen(port);
 console.log('Listening on Port: ' + port);
