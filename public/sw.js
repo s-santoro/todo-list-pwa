@@ -71,21 +71,23 @@ self.addEventListener("fetch", event => {
 });
 
 
-// The sync event for the contact form
+// Background Sync to add tasks
 self.addEventListener('sync', function (event) {
-  if (event.tag === 'tasksSync') {
+  if (event.tag === 'tasksPost') {
     event.waitUntil(
       idbKeyval.keys().then(keys => {
         keys.reverse();
         keys.forEach(function (key) {
-          idbKeyval.get(key).then(value =>
-            fetch('/api/tasks', {
-              method: 'POST',
-              headers: new Headers({ 'content-type': 'application/json' }),
-              body: JSON.stringify(value)
-            })
-          )
-          idbKeyval.delete(key);
+          idbKeyval.get(key).then(value => {
+            if (value.state === "post"){
+              fetch('/api/tasks', {
+                method: 'POST',
+                headers: new Headers({ 'content-type': 'application/json' }),
+                body: JSON.stringify(value)
+              })
+              idbKeyval.delete(key);
+            }
+          })
         })
       }
       ))
@@ -101,6 +103,29 @@ self.addEventListener('sync', function (event) {
       */
     // Remove the value from the DB
     //idbKeyval.delete('0');
+  }
+});
+
+// Background Sync to close tasks
+self.addEventListener('sync', function (event) {
+  if (event.tag === 'tasksPut') {
+    event.waitUntil(
+      idbKeyval.keys().then(keys => {
+        keys.reverse();
+        keys.forEach(function (key) {
+          idbKeyval.get(key).then(value => {
+            console.log(value);
+            if (value.state === "put"){
+              fetch('/api/tasks/' + value.id, {
+                method: 'PUT',
+                headers: new Headers({ 'content-type': 'application/json' })
+              })
+              idbKeyval.delete(key);
+            }
+          })
+        })
+      })
+    )
   }
 });
 

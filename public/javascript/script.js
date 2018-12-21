@@ -38,7 +38,7 @@ fetch(url)
 $('#addTask').click(function () {
   if ('serviceWorker' in navigator && 'SyncManager' in window) {
     navigator.serviceWorker.getRegistration().then(registration => {
-      registration.sync.register('tasksSync').then(() => {
+      registration.sync.register('tasksPost').then(() => {
         var payload = {
           task: document.getElementById('inputTask').value,
           state: 'post',
@@ -97,6 +97,7 @@ function layoutClosedTask(id, task) {
     '</del></div>');
 }
 
+/*
 // set task to done
 function setToDone() {
   let taskUrl = url + this.id.replace(/checkbox/, '/');
@@ -109,6 +110,24 @@ function setToDone() {
   })
     .then()
     .catch((err) => console.log(err));
+}
+*/
+
+function setToDone() {
+  let id = this.id.replace(/checkbox/, '');
+  this.parentElement.parentElement.setAttribute('style', 'display: none;');
+  if ('serviceWorker' in navigator && 'SyncManager' in window) {
+    navigator.serviceWorker.getRegistration().then(registration => {
+      registration.sync.register('tasksPut').then(() => {
+        var payload = {
+          id: id,
+          state: 'put',
+        };
+        idbKeyval.set(syncCount, payload);
+        syncCount++;
+      });
+    });
+  }
 }
 
 // fetch data with query
@@ -140,7 +159,7 @@ function renderOpenTasks() {
   if (!active) {
     classList.toggle('active');
     document.getElementById('closed-tasks').classList.toggle('active');
-    fetchAndRenderTasks('?state=open');
+    fetchAndRenderTasks('open');
   }
 }
 
@@ -151,7 +170,7 @@ function renderClosedTasks() {
   if (!active) {
     classList.toggle('active');
     document.getElementById('open-tasks').classList.toggle('active');
-    fetchAndRenderTasks('?state=closed');
+    fetchAndRenderTasks('closed');
   }
 }
 
@@ -173,35 +192,3 @@ function displayMessageNotification(notificationText) {
   messageNotification.innerHTML = notificationText;
   messageNotification.className = 'showMessageNotification';
 }
-
-/*
-// Send the actual message
-function sendMessage() {
-  console.log('sendMessage');
-
-  var payload = {
-    name: document.getElementById('inputTask').value,
-  };
-
-  // Send the POST request to the server
-  return fetch('/api/tasks', {
-    method: 'post',
-    headers: new Headers({
-      'content-type': 'application/json'
-    }),
-    body: JSON.stringify(payload)
-  });
-}
-
-// Queue the message till the sync takes place
-function queueMessage() {
-  console.log('Message queued');
-
-  var payload = {
-    name: document.getElementById('inputTask').value,
-  };
-
-  // Save to indexdb
-  idbKeyval.set('sendMessage', payload);
-}
-*/
