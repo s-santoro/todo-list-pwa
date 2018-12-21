@@ -3,7 +3,10 @@ body {
   box-sizing: border-box;
   font: 1.4rem "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+.main-wrapper {
+	height: 100vh;
+	width: auto;
+}
 a {
   color: #00b7ff;
 }
@@ -14,27 +17,29 @@ a {
   }
 }
 
-.showOfflineNotification { 
+#offline {
 	background-color: #343a40;
-	height: 65px;
-	color: white;
+	/*position: fixed;*/
+	/*bottom: 0;*/
+	/*left: 0;*/
+	/*right: 0;*/
+	height: auto;
+	width: 100%;
+	color: deepskyblue;
 	text-align: center;
-	padding-top: 20px;
-	font-size: 20px;
-	margin-top: 0px;
-	top: 0;
-	left: 0;
-	right: 0;
-	overflow: hidden;
-	z-index: 101; 
+	font-size: 12px;
+}
+#offline p {
+	margin: 0px;
+	padding: 0px;
+}
+
+.showOfflineNotification { 
+	display: block;
 }
 
 .hideOfflineNotification { 
 	display:none;
-}
-
-.main-wrapper{
-	margin-bottom: -65px;
 }
 
 

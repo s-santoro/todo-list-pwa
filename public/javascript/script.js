@@ -153,13 +153,11 @@ function renderClosedTasks() {
 }
 
 // show or hide offline notification
-var offlineNotification = document.getElementById('offline-message');
 function showIndicator() {
-  offlineNotification.innerHTML = 'You are currently offline.';
-  offlineNotification.className = 'showOfflineNotification';
+  document.getElementById('offline').className = 'showOfflineNotification';
 }
 function hideIndicator() {
-  offlineNotification.className = 'hideOfflineNotification';
+  document.getElementById('offline').className = 'hideOfflineNotification';
 }
 window.addEventListener('online', hideIndicator);
 window.addEventListener('offline', showIndicator);
