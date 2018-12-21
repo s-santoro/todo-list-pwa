@@ -1,5 +1,5 @@
-let url = 'http://localhost:3000/api/tasks';
-//let url = 'https://stark-temple-35723.herokuapp.com/api/tasks';
+//let url = 'http://localhost:3000/api/tasks';
+let url = 'https://todo-list-pwa.herokuapp.com/api/tasks';
 // needed to set correct id on new task
 let taskCount = 0;
 let syncCount = 0;
@@ -61,18 +61,6 @@ $('#addTask').click(function () {
       });
     });
   }
-
-  /*
-  $.ajax({
-    url: url,
-    type: 'POST',
-    data: JSON.stringify({ state: 'open', task: task }),
-    dataType: 'json',
-    contentType: 'application/json; charset=utf-8',
-    success: function() {
-      //
-    },
-  });*/
 });
 
 
@@ -97,22 +85,8 @@ function layoutClosedTask(id, task) {
     '</del></div>');
 }
 
-/*
-// set task to done
-function setToDone() {
-  let taskUrl = url + this.id.replace(/checkbox/, '/');
-  this.parentElement.parentElement.setAttribute('style', 'display: none;');
-  fetch(taskUrl, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-  })
-    .then()
-    .catch((err) => console.log(err));
-}
-*/
 
+// set task to done
 function setToDone() {
   let id = this.id.replace(/checkbox/, '');
   this.parentElement.parentElement.setAttribute('style', 'display: none;');
