@@ -73,8 +73,8 @@ self.addEventListener("fetch", event => {
 
 // Background Sync to add tasks
 self.addEventListener('sync', function (event) {
-  if (event.tag === 'tasksPost') {
-    event.waitUntil(
+  setTimeout(function () {
+    if (event.tag === 'tasksPost') {
       idbKeyval.keys().then(keys => {
         keys.reverse();
         keys.forEach(function (key) {
@@ -87,17 +87,17 @@ self.addEventListener('sync', function (event) {
               })
               idbKeyval.delete(key);
             }
-          })
-        })
-      })
-    )
-  }
+          });
+        });
+      });
+    }
+  }, 500);
 });
 
 // Background Sync to close tasks
 self.addEventListener('sync', function (event) {
-  if (event.tag === 'tasksPut') {
-    event.waitUntil(
+  setTimeout(function () {
+    if (event.tag === 'tasksPut') {
       idbKeyval.keys().then(keys => {
         keys.reverse();
         keys.forEach(function (key) {
@@ -109,9 +109,9 @@ self.addEventListener('sync', function (event) {
               })
               idbKeyval.delete(key);
             }
-          })
-        })
-      })
-    )
-  }
+          });
+        });
+      });
+    }
+  }, 500);
 });
