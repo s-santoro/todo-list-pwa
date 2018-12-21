@@ -34,7 +34,6 @@ fetch(url)
 // add a new task to the list
 // clear input-element
 // post new task to api
-
 $('#addTask').click(function () {
   if ('serviceWorker' in navigator && 'SyncManager' in window) {
     navigator.serviceWorker.getRegistration().then(registration => {

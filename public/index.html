@@ -57,7 +57,6 @@
     </div>
 
     <div id="task-list" class="container-fluid w-100"></div>
-    <div id="message"></div>
   </div>
   <div id="offline-message"></div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -68,28 +67,6 @@
   <script src="/javascript/script.js"></script>
   <script src="/javascript/idb-keyval.js" ></script>
   <script>
-    /*
-    if ("serviceWorker" in navigator && 'SyncManager' in window) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then(registration => navigator.serviceWorker.ready)
-        .then(registration => {
-          document.getElementById('addTask').addEventListener('click', () => {
-            registration.sync.register('needSync').then(() => {            // The sync for the contact-email
-              queueMessage();                                                 // Queue the body of the message
-              displayMessageNotification('Message queued');
-            });
-          });
-        });
-    }
-    else {
-    document.getElementById('addTask').addEventListener('click', () => {
-          sendMessage()     // Else fallback and send the actual message
-          .then(displayMessageNotification('Message sent'))
-          .catch(err => { displayMessageNotification('Message failed') });
-    });
-  }
-  */
   if ("serviceWorker" in navigator) {
         navigator.serviceWorker
           .register("/sw.js")

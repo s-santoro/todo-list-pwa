@@ -19,10 +19,6 @@ a {
 
 #offline {
 	background-color: #343a40;
-	/*position: fixed;*/
-	/*bottom: 0;*/
-	/*left: 0;*/
-	/*right: 0;*/
 	height: auto;
 	width: 100%;
 	color: deepskyblue;
@@ -41,36 +37,3 @@ a {
 .hideOfflineNotification { 
 	display:none;
 }
-
-
-/* Extra small devices (portrait phones, less than 576px) */
-
-/*
-  warum ändert es bei min-width und nicht bei max-width
-
-*/
-/*@media (min-width: 575.98px) {*/
-/*body, .h4 {*/
-/*font-size: 3rem;*/
-/*}*/
-/*}*/
-
-/*!*Small devices (landscape phones, less than 768px)*!*/
-/*@media (min-width: 767.98px) {*/
-/*body {*/
-/*font-size: 4rem;*/
-/*}*/
-/*}*/
-
-/*!*Medium devices (tablets, less than 992px)*!*/
-/*@media (max-width: 991.98px) {*/
-
-/*}*/
-
-/*!*Large devices (desktops, less than 1200px)*!*/
-/*@media (max-width: 1199.98px) {*/
-
-/*}*/
-
-/*Extra large devices (large desktops)*/
-/*No media query since the extra-large breakpoint has no upper bound on its width*/

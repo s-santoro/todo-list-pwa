@@ -102,7 +102,6 @@ self.addEventListener('sync', function (event) {
         keys.reverse();
         keys.forEach(function (key) {
           idbKeyval.get(key).then(value => {
-            console.log(value);
             if (value.state === "put") {
               fetch('/api/tasks/' + value.id, {
                 method: 'PUT',
