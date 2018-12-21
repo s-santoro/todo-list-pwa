@@ -32,8 +32,9 @@ fetch(url)
   .catch((err) => console.log(err));
 
 // add a new task to the list
+// task must be atleast 4 chars long
 // clear input-element
-// post new task to api
+// set idb-keyval for task to post
 $('#addTask').click(function () {
   if ('serviceWorker' in navigator && 'SyncManager' in window) {
     navigator.serviceWorker.getRegistration().then(registration => {
@@ -86,6 +87,7 @@ function layoutClosedTask(id, task) {
 
 
 // set task to done
+// set idb-keyval for setting task to done
 function setToDone() {
   let id = this.id.replace(/checkbox/, '');
   this.parentElement.parentElement.setAttribute('style', 'display: none;');
@@ -103,9 +105,10 @@ function setToDone() {
   }
 }
 
-// fetch data with query
-// open tasks = ?state=open
-// closed tasks = ?state=closed
+// fetch data
+// create a task with correct layout
+// add event-listener for checkbox (only open task)
+// add it to task-list
 function fetchAndRenderTasks(state) {
   fetch(url)
     .then((response) => response.json())
@@ -126,7 +129,7 @@ function fetchAndRenderTasks(state) {
     .catch((err) => console.log(err));
 }
 
-// render new tasks
+// render new tasks when navbar-tab "open tasks" is clicked
 function renderOpenTasks() {
   let classList = document.getElementById('open-tasks').classList;
   let active = classList.contains('active');
@@ -137,7 +140,7 @@ function renderOpenTasks() {
   }
 }
 
-// render closed tasks
+// render closed tasks when navbar-tab "closed tasks" is clicked
 function renderClosedTasks() {
   let classList = document.getElementById('closed-tasks').classList;
   let active = classList.contains('active');
@@ -148,13 +151,15 @@ function renderClosedTasks() {
   }
 }
 
-// show or hide offline notification
+// show offline notification
 function showIndicator() {
   document.getElementById('offline').className = 'showOfflineNotification';
 }
+// hide offline notification
 function hideIndicator() {
   document.getElementById('offline').className = 'hideOfflineNotification';
 }
+// add event-listeners for online/offline indicators
 window.addEventListener('online', hideIndicator);
 window.addEventListener('offline', showIndicator);
 

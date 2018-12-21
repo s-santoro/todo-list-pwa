@@ -2,7 +2,7 @@ let cacheName = "todo_v1";
 importScripts('./javascript/idb-keyval.js');
 
 /**
- * Initial caching of files for layout.
+ * Initial caching of files for layout
  */
 self.addEventListener("install", event => {
   console.log("installing");
@@ -30,7 +30,7 @@ self.addEventListener("install", event => {
 });
 
 /**
- * Intercepting network-request to check cache before fetching.
+ * Intercepting network-request to check cache before fetching
  */
 self.addEventListener("fetch", event => {
   /**
@@ -39,12 +39,12 @@ self.addEventListener("fetch", event => {
    * not in cache => request and save it in cache
    */
   event.respondWith(caches.match(event.request).then(response => {
-    // when user is online, fetch resource
-    // otherwise get from cache if exists in cache
+    // Get layout-specific files from cache if exist in cache
+    // Fetch tasks when user is online, otherwise get from cache
     if (response && (!event.request.url.includes("api/tasks") || !navigator.onLine)) {
       return response;
     }
-    // fetch request
+    // fetch request (create clone => stream can't be consumed multiple times)
     let requestClone = event.request.clone();
     return fetch(requestClone).then(res => {
       // if request failed then return immediately
@@ -53,6 +53,7 @@ self.addEventListener("fetch", event => {
       }
       let resClone = res.clone();
       // cache request only if HTTP-GET was used
+      // cache only accepts HTTP-GET
       caches.open(cacheName)
         .then(cache => {
           if (requestClone.method === 'GET') {
@@ -70,8 +71,9 @@ self.addEventListener("fetch", event => {
   }));
 });
 
-
-// Background Sync to add tasks
+/**
+ * Background Sync to add tasks
+ */
 self.addEventListener('sync', function (event) {
   setTimeout(function () {
     if (event.tag === 'tasksPost') {
@@ -94,7 +96,9 @@ self.addEventListener('sync', function (event) {
   }, 500);
 });
 
-// Background Sync to close tasks
+/**
+ * Background Sync to set tasks to done
+ */
 self.addEventListener('sync', function (event) {
   setTimeout(function () {
     if (event.tag === 'tasksPut') {
