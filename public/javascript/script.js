@@ -1,5 +1,5 @@
-let url = 'http://localhost:3000/api/tasks';
-//let url = 'https://todo-list-pwa.herokuapp.com/api/tasks';
+//let url = 'http://localhost:3000/api/tasks';
+let url = 'https://todo-list-pwa.herokuapp.com/api/tasks';
 // needed to set correct id on new task
 let taskCount = 0;
 let syncCount = 0;
