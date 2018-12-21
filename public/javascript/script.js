@@ -37,9 +37,14 @@ fetch(url)
 $('#addTask').click(function() {
   if ('serviceWorker' in navigator && 'SyncManager' in window) {
     navigator.serviceWorker.getRegistration().then(registration => {
-        registration.sync.register('needsSync');
+        registration.sync.register('tasksSync').then(() =>{
+          var payload = {
+            task: document.getElementById('inputTask').value,
+          };
+          idbKeyval.set('tasks', payload);
+        });
     });
-  } 
+  }/*
   var task = $('#inputTask').val();
   if ($('#inputTask').val().length != 0) {
     let id = taskCount;
@@ -62,6 +67,7 @@ $('#addTask').click(function() {
       },
     });
   }
+  */
 });
 
 
@@ -163,7 +169,7 @@ function displayMessageNotification(notificationText) {
   messageNotification.className = 'showMessageNotification';
 }
 
-
+/*
 // Send the actual message
 function sendMessage() {
   console.log('sendMessage');
@@ -173,7 +179,7 @@ function sendMessage() {
   };
 
   // Send the POST request to the server
-  return fetch('/sendMessage/', {
+  return fetch('/api/tasks', {
     method: 'post',
     headers: new Headers({
       'content-type': 'application/json'
@@ -193,3 +199,4 @@ function queueMessage() {
   // Save to indexdb
   idbKeyval.set('sendMessage', payload);
 }
+*/

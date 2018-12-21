@@ -70,23 +70,26 @@ self.addEventListener("fetch", event => {
     }));
 });
 
-/*
+
 // The sync event for the contact form
 self.addEventListener('sync', function (event) {
-  if (event.tag === 'contact-email') {
+  if (event.tag === 'tasksSync') {
     event.waitUntil(
-      idbKeyval.get('sendMessage').then(value =>
-        fetch('/sendMessage/', {
+      idbKeyval.get('tasks').then(value =>
+        fetch('/api/tasks', {
           method: 'POST',
           headers: new Headers({ 'content-type': 'application/json' }),
           body: JSON.stringify(value)
-        })));
+        })
+        
+        ));
         // Remove the value from the DB
-        idbKeyval.delete('sendMessage');
+        idbKeyval.delete('tasks');
     }
 });
-*/
 
+
+/*
 //keeping data synchronized
 self.addEventListener('sync', (event) => {
 
@@ -169,3 +172,4 @@ self.addEventListener('sync', (event) => {
 
   }
 });
+*/
