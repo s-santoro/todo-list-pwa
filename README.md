@@ -5,7 +5,7 @@ Create tasks or set executed tasks to done.
 The app can be found on heroku: [todo-list-pwa]( https://todo-list-pwa.herokuapp.com/)
 
 ## Supported Features  
-Our PWA supported following features:
+Our PWA supports following features:
 
 ### Caching on Install
 Initial caching of layout-specific files as soon as the service-worker is installed.
