@@ -45,7 +45,7 @@ $('#addTask').click(function () {
         idbKeyval.set(syncCount, payload);
       }).then(() => {
         var task = $('#inputTask').val();
-        if ($('#inputTask').val().length <= 3) {
+        if ($('#inputTask').val().length > 3) {
           let id = taskCount;
           if (document.getElementById('open-tasks').classList.contains('active')) {
             $('#task-list').append(layoutOpenTask(id, task));
