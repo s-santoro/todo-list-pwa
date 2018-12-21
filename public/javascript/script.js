@@ -2,6 +2,7 @@ let url = 'http://localhost:3000/api/tasks';
 //let url = 'https://stark-temple-35723.herokuapp.com/api/tasks';
 // needed to set correct id on new task
 let taskCount = 0;
+let syncCount = 0;
 
 // needed for bootstrap navbar-toggle
 window.onload = function () {
@@ -40,8 +41,9 @@ $('#addTask').click(function () {
       registration.sync.register('tasksSync').then(() => {
         var payload = {
           task: document.getElementById('inputTask').value,
+          state: 'post',
         };
-        idbKeyval.set('tasks', payload);
+        idbKeyval.set(syncCount, payload);
       }).then(() => {
         var task = $('#inputTask').val();
         if ($('#inputTask').val().length != 0) {
@@ -54,6 +56,7 @@ $('#addTask').click(function () {
           $('#checkbox' + id).on('click', setToDone);
           // increment counter
           taskCount++;
+          syncCount++;
         }
       });
     });
