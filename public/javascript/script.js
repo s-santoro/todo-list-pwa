@@ -34,40 +34,42 @@ fetch(url)
 // clear input-element
 // post new task to api
 
-$('#addTask').click(function() {
+$('#addTask').click(function () {
   if ('serviceWorker' in navigator && 'SyncManager' in window) {
     navigator.serviceWorker.getRegistration().then(registration => {
-        registration.sync.register('tasksSync').then(() =>{
-          var payload = {
-            task: document.getElementById('inputTask').value,
-          };
-          idbKeyval.set('tasks', payload);
-        });
-    });
-  }/*
-  var task = $('#inputTask').val();
-  if ($('#inputTask').val().length != 0) {
-    let id = taskCount;
-    if (document.getElementById('open-tasks').classList.contains('active')) {
-      $('#task-list').append(layoutOpenTask(id, task));
-    }
-    $('#inputTask').val('');
-    $('#inputTask').attr('placeholder', 'Add a to-do...');
-    $('#checkbox' + id).on('click', setToDone);
-    // increment counter
-    taskCount++;
-    $.ajax({
-      url: url,
-      type: 'POST',
-      data: JSON.stringify({ state: 'open', task: task }),
-      dataType: 'json',
-      contentType: 'application/json; charset=utf-8',
-      success: function() {
-        //
-      },
+      registration.sync.register('tasksSync').then(() => {
+        var payload = {
+          task: document.getElementById('inputTask').value,
+        };
+        idbKeyval.set('tasks', payload);
+      }).then(() => {
+        var task = $('#inputTask').val();
+        if ($('#inputTask').val().length != 0) {
+          let id = taskCount;
+          if (document.getElementById('open-tasks').classList.contains('active')) {
+            $('#task-list').append(layoutOpenTask(id, task));
+          }
+          $('#inputTask').val('');
+          $('#inputTask').attr('placeholder', 'Add a to-do...');
+          $('#checkbox' + id).on('click', setToDone);
+          // increment counter
+          taskCount++;
+        }
+      });
     });
   }
-  */
+
+  /*
+  $.ajax({
+    url: url,
+    type: 'POST',
+    data: JSON.stringify({ state: 'open', task: task }),
+    dataType: 'json',
+    contentType: 'application/json; charset=utf-8',
+    success: function() {
+      //
+    },
+  });*/
 });
 
 
@@ -115,7 +117,7 @@ function fetchAndRenderTasks(state) {
     .then((json) => {
       $('.task-item').remove();
       $.each(json, function (key, val) {
-        if (val.state === state){
+        if (val.state === state) {
           if (state.includes('open')) {
             $('#task-list').append(layoutOpenTask(val.id, val.task));
           } else if (state.includes('closed')) {
